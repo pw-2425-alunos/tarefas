@@ -15,17 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from shop.api import api as shop_api
+from tarefas.api import api as tarefas_api
 from django.shortcuts import redirect
 
 
 
 urlpatterns = [
-    path('', lambda request: redirect('/docs', permanent=False)),
+    path('', lambda request: redirect('/api/docs', permanent=False)),
     path('admin/', admin.site.urls),
-#    path('', include('shop.urls')),
-    path('', shop_api.urls),
-
+    path('api/', tarefas_api.urls),
 ]
 
 
