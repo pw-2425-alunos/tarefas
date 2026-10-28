@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Optional
 
 from ninja import Field, ModelSchema, NinjaAPI, Schema
 from ninja.errors import HttpError, ValidationError
@@ -22,6 +22,12 @@ class TarefaIn(Schema):
     titulo: str = Field(..., min_length=1, max_length=200)
     user: str = Field(..., min_length=1, max_length=150)
     prioridade: int = Field(1, ge=1, le=3)
+
+
+class TarefaPatch(Schema):
+    titulo: Optional[str] = Field(None, min_length=1, max_length=200)
+    user: Optional[str] = Field(None, min_length=1, max_length=150)
+    prioridade: Optional[int] = Field(None, ge=1, le=3)
 
 
 class TarefaOut(ModelSchema):
@@ -134,6 +140,23 @@ def alterar_tarefa(request, tarefa_id: int, payload: TarefaIn):
     if tarefa is None:
         return 404, NAO_ENCONTRADA
     for campo, valor in payload.dict().items():
+        setattr(tarefa, campo, valor)
+    tarefa.save()
+    return 200, tarefa
+
+
+@api.patch(
+    "/tarefas/{tarefa_id}",
+    response={200: TarefaOut, **ERROS_ID, 400: ErroOut},
+    tags=TAG,
+)
+def atualizar_tarefa(request, tarefa_id: int, payload: TarefaPatch):
+    tarefa = Tarefa.objects.filter(id=tarefa_id).first()
+    if tarefa is None:
+        return 404, NAO_ENCONTRADA
+    for campo, valor in payload.dict(exclude_unset=True).items():
+        if valor is None:
+            raise HttpError(422, f"O campo '{campo}' não pode ser nulo.")
         setattr(tarefa, campo, valor)
     tarefa.save()
     return 200, tarefa
