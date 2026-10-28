@@ -11,10 +11,9 @@ logger = logging.getLogger(__name__)
 
 api = NinjaAPI(
     title="Tarefas API",
+    description="""API para gerir operações sobre dados de tarefas""",
     servers=(
         [{"url": "https://tarefas.pw.deisi.ulusofona.pt"}]
-        if not settings.DEBUG
-        else [{"url": "/", "description": "Servidor de Desenvolvimento"}]
     )
 )
 
