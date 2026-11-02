@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+  <link rel="icon" href="{% static 'tarefas/favicon.svg' %}" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Tarefas</title>
+  <style>
+    button{
+      margin-left: 10px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    li {
+      width: 400px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 5px;
+      background: lightsalmon;
+    
+      display: flex;
+      flex-direction: row;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Gestão de Tarefas</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Lista de Tarefas</h2>
+      <ul></ul>
+    </section>
+    <section>
+      <h2>Nova Tarefa</h2>
+      <form>
+        <input type="text" id="titulo" placeholder="descreva a tarefa" required>
+        <input type="number" id="prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
+        <input type="text" id="user" placeholder="utilizador" required>
+        <input type="submit" value="criar nova tarefa">
+      </form>
+    </section>
+  </main>
+  <footer>Lusofona</footer>
+
+  <dialog id="modal_editar">
+    <h2>Editar Tarefa</h2>
+
+    <form id="form_editar">
+      <input type="hidden" id="edit_id">
+
+      <input type="text" id="edit_titulo" placeholder="descreva a tarefa" required>
+      <input type="number" id="edit_prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
+      <input type="text" id="edit_user" placeholder="utilizador" required>
+      <button type="submit">Guardar alterações</button>
+      <button type="button" id="fechar_modal">Cancelar</button>
+    </form>
+  </dialog>
+  
+  <script src="{% static 'tarefas/script.js' %}"></script>
+</body>
+
+</html>

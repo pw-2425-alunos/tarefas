@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^k_*9a2)e&&&yrfm^!xum^mda$*+#23l)j#1&imd^5fyh@xubc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['deisishop.pythonanywhere.com', 'localhost', 'tarefas.pw.deisi.ulusofona.pt']
+ALLOWED_HOSTS = ['127.0.0.1', 'deisishop.pythonanywhere.com', 'localhost', 'tarefas.pw.deisi.ulusofona.pt']
 
 CSRF_TRUSTED_ORIGINS = ['https://tarefas.pw.deisi.ulusofona.pt']
 

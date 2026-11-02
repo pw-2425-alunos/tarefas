@@ -24,6 +24,7 @@ urlpatterns = [
     path('', lambda request: redirect('/docs', permanent=False)),
     path('admin/', admin.site.urls),
     path('', tarefas_api.urls),
+    path('web/', include("tarefas.urls")),
 ]
 
 
