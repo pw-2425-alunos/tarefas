@@ -15,6 +15,11 @@ const user_edit_node = document.querySelector("#edit_user")
 
 const modal_node = document.querySelector("#modal_editar")
 
+const modal_apagar_node = document.querySelector("#modal_apagar");
+const cancelar_apagar_node = document.querySelector("#cancelar_apagar");
+const confirmar_apagar_node = document.querySelector("#confirmar_apagar");
+
+let tarefa_id_apagar = null;
 //
 // Fetch de dados
 
@@ -30,7 +35,7 @@ function listarTarefas() {
         const li = document.createElement('li')
 
         const tarefa = document.createElement('span')
-        tarefa.innerHTML = `${item.titulo} ${"⭐️".repeat(item.prioridade)} (${item.user})`
+        tarefa.innerHTML = `<span>${item.titulo}</span><span>${item.user}. prioridade: ${"⭐️".repeat(item.prioridade)} </span>`
 
         const btn_editar = document.createElement('button');
         btn_editar.innerHTML = '<i data-lucide="pencil"></i>';
@@ -42,7 +47,7 @@ function listarTarefas() {
         btn_apagar.innerHTML = '<i data-lucide="trash-2"></i>';
 
         btn_apagar.title = 'Apagar tarefa';
-        btn_apagar.onclick = () => apagarTarefa(item.id);
+        btn_apagar.onclick = () => querApagarTarefa(item.id);
 
         li.append(tarefa, btn_editar, btn_apagar);
 
@@ -120,8 +125,13 @@ function atualizarTarefa(event) {
   });
 }
 
-function apagarTarefa(id) {
-  fetch(`${API_URL}/tarefas/${id}`,{
+function querApagarTarefa(id) {
+    tarefa_id_apagar = id;
+    modal_apagar_node.showModal();
+}
+
+function apagarTarefa() {
+  fetch(`${API_URL}/tarefas/${tarefa_id_apagar}`,{
     method: 'DELETE',
   })
   .then(response => {
@@ -166,6 +176,9 @@ document.querySelector("#form_editar")
 
 document.querySelector("#fechar_modal")
         .addEventListener('click', () => modal_node.close())
+
+confirmar_apagar_node.onclick = apagarTarefa
+cancelar_apagar_node.onclick = () => modal_apagar_node.close()
 
 //
 // Inicialização
