@@ -15,20 +15,42 @@
     ul {
       list-style: none;
       padding: 0;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      gap: 10px;
     }
-    li {
-      width: 400px;
+    li, #nova-tarefa {
+      
       padding: 10px;
       margin: 10px;
       border-radius: 5px;
-      background: lightsalmon;
-    
+      background: #EAF6FF;
+      border: 2px solid #95cff6;
+      font-weight: bold;
+
       display: flex;
       flex-direction: row;
+    }
+
+    li button:nth-of-type(1) {
+      margin-left: auto;
+    }
+
+    #nova-tarefa, #form_editar {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr auto auto;
+    }
+
+    #nova-tarefa input[type="submit"] {
+      margin-left: auto;
+    }
+
+    dialog {
+      background: #d7f4d7;
+    }
+
+    input,
+    textarea {
+        font-family: inherit;
+        font-size: inherit;
     }
 
   </style>
@@ -40,20 +62,21 @@
   </header>
   <main>
     <section>
-      <h2>Lista de Tarefas</h2>
-      <ul></ul>
-    </section>
-    <section>
       <h2>Nova Tarefa</h2>
-      <form>
-        <input type="text" id="titulo" placeholder="descreva a tarefa" required>
+      <form id="nova-tarefa">
+        <textarea id="titulo" placeholder="descreva a tarefa" required></textarea>
         <input type="number" id="prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
         <input type="text" id="user" placeholder="utilizador" required>
         <input type="submit" value="criar nova tarefa">
       </form>
     </section>
+    <section>
+      <h2>Lista</h2>
+      <ul></ul>
+    </section>
+    
   </main>
-  <footer>Lusofona</footer>
+  <footer>Lusófona</footer>
 
   <dialog id="modal_editar">
     <h2>Editar Tarefa</h2>
@@ -61,10 +84,10 @@
     <form id="form_editar">
       <input type="hidden" id="edit_id">
 
-      <input type="text" id="edit_titulo" placeholder="descreva a tarefa" required>
+      <textarea id="edit_titulo" required></textarea>
       <input type="number" id="edit_prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
       <input type="text" id="edit_user" placeholder="utilizador" required>
-      <button type="submit">Guardar alterações</button>
+      <button type="submit">Guardar</button>
       <button type="button" id="fechar_modal">Cancelar</button>
     </form>
   </dialog>

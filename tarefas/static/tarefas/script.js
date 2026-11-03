@@ -29,17 +29,17 @@ function listarTarefas() {
         const li = document.createElement('li')
 
         const tarefa = document.createElement('span')
-        tarefa.innerHTML = `<span>${"⭐️".repeat(item.prioridade)}</span><span>${item.titulo} (${item.user})</span>`
+        tarefa.innerHTML = `${item.titulo} ${"⭐️".repeat(item.prioridade)} (${item.user})`
 
         const btn_editar = document.createElement('button');
         btn_editar.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>';
-        btn_editar.setAttribute('aria-label', 'Editar tarefa');
+
         btn_editar.title = 'Editar tarefa';
         btn_editar.onclick = () => editarTarefa(item.id);
 
         const btn_apagar = document.createElement('button');
         btn_apagar.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
-        btn_apagar.setAttribute('aria-label', 'Apagar tarefa');
+
         btn_apagar.title = 'Apagar tarefa';
         btn_apagar.onclick = () => apagarTarefa(item.id);
 
