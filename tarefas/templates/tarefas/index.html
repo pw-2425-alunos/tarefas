@@ -9,15 +9,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestão de Tarefas</title>
   <style>
-    button{
-      margin-left: 10px;
-    }
+    
     ul {
       list-style: none;
       padding: 0;
     }
+
     li, #nova-tarefa {
-      
       padding: 10px;
       margin: 10px;
       border-radius: 5px;
@@ -27,36 +25,45 @@
 
       display: flex;
       flex-direction: row;
+      gap: 10px;
     }
 
     li button:nth-of-type(1) {
       margin-left: auto;
     }
 
-    #nova-tarefa, #form_editar {
-      display: grid;
-      gap: 10px;
-      grid-template-columns: 1fr auto auto;
-    }
-
-    #nova-tarefa input[type="submit"] {
-      margin-left: auto;
-    }
-
-    dialog {
+    #nova-tarefa {
       background: #d7f4d7;
+      border: 2px solid #4d7d4d;
+    }
+
+    #nova-tarefa 
+    dialog {
+      background: #efdbc1;
+      border: 2px solid orange;
       border-radius: 10px;
     }
-    dialog form {
+
+    #nova-tarefa input[type="submit"]{
+      background: #4d7d4d;
+      color: white;
+    }
+
+    dialog form, #nova-tarefa {
       display: flex;
       flex-direction: column;
       gap: 10px;
     }
 
-    input,
-    textarea {
+    #form_editar button[type="submit"]{
+      background: orange;
+      color: white;
+    }
+
+    input, textarea, button {
         font-family: inherit;
         font-size: inherit;
+        padding: 10px;
     }
 
   </style>
@@ -70,10 +77,10 @@
     <section>
       <h2>Nova Tarefa</h2>
       <form id="nova-tarefa">
-        <textarea id="titulo" placeholder="descreva a tarefa" required></textarea>
+        <textarea id="titulo" placeholder="descreva a tarefa"  rows="2" required></textarea>
         <input type="number" id="prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
-        <input type="text" id="user" placeholder="utilizador" required>
-        <input type="submit" value="criar nova tarefa">
+        <input type="text" id="user" placeholder="nome do utilizador" required>
+        <button type="submit"><i data-lucide="plus"></i></button> 
       </form>
     </section>
     <section>
@@ -90,15 +97,18 @@
     <form id="form_editar">
       <input type="hidden" id="edit_id">
 
-      <textarea id="edit_titulo" required></textarea>
+      <textarea id="edit_titulo"  rows="3" required></textarea>
       <input type="number" id="edit_prioridade" min="1" max="3" step="1" placeholder="prioridade [1, 2, 3]" required>
       <input type="text" id="edit_user" placeholder="utilizador" required>
-      <button type="submit">Guardar</button>
+      <button type="submit" id="guarda-tarefa">Guardar</button>
       <button type="button" id="fechar_modal">Cancelar</button>
     </form>
   </dialog>
   
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script src="{% static 'tarefas/script.js' %}"></script>
+  <script> lucide.createIcons(); </script>
+
 </body>
 
 </html>

@@ -6,13 +6,14 @@ const ul_node = document.querySelector('ul')
 const titulo_node = document.querySelector("#titulo")
 const prioridade_node = document.querySelector("#prioridade")
 const user_node = document.querySelector("#user")
+const form_nova_node = document.querySelector("#nova-tarefa")
+
 
 const titulo_edit_node = document.querySelector("#edit_titulo")
 const prioridade_edit_node = document.querySelector("#edit_prioridade")
 const user_edit_node = document.querySelector("#edit_user")
 
-const submit_node = document.querySelector("input[type='submit']")
-const modal_node = document.querySelector("#modal_editar");
+const modal_node = document.querySelector("#modal_editar")
 
 //
 // Fetch de dados
@@ -32,13 +33,13 @@ function listarTarefas() {
         tarefa.innerHTML = `${item.titulo} ${"⭐️".repeat(item.prioridade)} (${item.user})`
 
         const btn_editar = document.createElement('button');
-        btn_editar.innerHTML = '<i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>';
+        btn_editar.innerHTML = '<i data-lucide="pencil"></i>';
 
         btn_editar.title = 'Editar tarefa';
         btn_editar.onclick = () => editarTarefa(item.id);
 
         const btn_apagar = document.createElement('button');
-        btn_apagar.innerHTML = '<i class="fa-solid fa-trash" aria-hidden="true"></i>';
+        btn_apagar.innerHTML = '<i data-lucide="trash-2"></i>';
 
         btn_apagar.title = 'Apagar tarefa';
         btn_apagar.onclick = () => apagarTarefa(item.id);
@@ -46,7 +47,10 @@ function listarTarefas() {
         li.append(tarefa, btn_editar, btn_apagar);
 
         ul_node.append(li)
+
+       
       })
+      lucide.createIcons();
     })
     .catch(error => {
       console.error("Erro ao carregar tarefas:", error);
@@ -73,13 +77,13 @@ function criarTarefa(event) {
     body: JSON.stringify({
       titulo: titulo_node.value,
       user: user_node.value,
-      prioridade: prioridade_node.value
+      prioridade: Number(prioridade_node.value)
     })
   })
   .then(response =>  {
     if (!response.ok) throw new Error(response.status);
     
-    document.querySelector("form").reset();
+    form_nova_node.reset();
     listarTarefas()
   })
   .catch(error => {
@@ -101,7 +105,7 @@ function atualizarTarefa(event) {
     body: JSON.stringify({
       titulo: titulo_edit_node.value,
       user: user_edit_node.value,
-      prioridade: prioridade_edit_node.value
+      prioridade: Number(prioridade_edit_node.value)
     })
   })
   .then(response => {
@@ -155,7 +159,7 @@ function editarTarefa(id) {
 
 //
 // Event listeners
-submit_node.onclick = criarTarefa
+form_nova_node.onsubmit = criarTarefa
 
 document.querySelector("#form_editar")
         .onsubmit = atualizarTarefa
